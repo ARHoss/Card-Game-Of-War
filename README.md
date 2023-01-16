@@ -8,7 +8,7 @@ Link to project: https://arhoss.github.io/Card-Game-Of-War/index.html
 
 Rules of the game:
 
-1. Total card 52
+1. Total number of cards is 52
 2. Each player wins with the card that has higher value
 3. If both card mathces then program autmatically gets 4 cards for the player. The 4th card is then used to find the winner.
 4. When all the card is removed from deck then the final score is used to determine the winner!
