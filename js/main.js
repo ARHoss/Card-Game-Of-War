@@ -5,7 +5,7 @@ let drawCards = 2, cardNum1 = 0, cardNum2 = 1;
 
 let score = getScore();
 
-if(score != null){
+if(score != null & deckId !=null){
   document.querySelector('main').classList.remove('hidden');
   document.querySelector('#Start').classList.add('hidden');
 
@@ -203,6 +203,7 @@ function finalScore(){
   document.querySelector('#player1').src = '';
   document.querySelector('#player2').src = '';
   document.querySelector('#result').innerText = 'New Game';
+  deckId = null;
 
 }
 
