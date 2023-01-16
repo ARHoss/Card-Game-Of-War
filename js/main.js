@@ -188,7 +188,10 @@ function getScore(){
 function finalScore(){
 
   let result = score.player1 > score.player2?'Player 1 Wins the Game':'Player 2 Wins the Game';
+<<<<<<< HEAD
   console.log(score.player1 > score.player2);
+=======
+>>>>>>> main
 
   localStorage.clear();
   
