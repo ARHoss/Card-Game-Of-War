@@ -1,11 +1,19 @@
 //Example fetch using card game war api
 let deckId = localStorage.getItem('deckId');
 
-let score = getScore();
-
 let drawCards = 2, cardNum1 = 0, cardNum2 = 1;
 
+let score = getScore();
 
+if(score != null){
+  document.querySelector('main').classList.remove('hidden');
+  document.querySelector('#Start').classList.add('hidden');
+
+  document.querySelector('#player1').src = score.player1CardUrl;
+  document.querySelector('#player2').src = score.player2CardUrl;
+  document.querySelector('#score').innerText = `Player 1: ${score.player1} Player 2: ${score.player2}`;
+  document.querySelector('#remainingCards').innerText = `Remaining Cards: ${score.remainingCards}`;
+}
 
 
 document.querySelector('#Start').addEventListener('click', initializeDeck);
@@ -59,6 +67,7 @@ function showCard(){
   .then(data => {
     console.log(data)
     console.log('New Cards: '+drawCards);
+    score['remainingCards'] = data.remaining;
     
     
 
@@ -69,7 +78,6 @@ function showCard(){
     let player2CardVal = getCardNumValue(data.cards[cardNum2].value);
 
     if(drawCards == 2){
-      score['remainingCards'] -= drawCards;
 
       if(player1CardVal > player2CardVal){
         score['player1'] += 2;
@@ -79,14 +87,20 @@ function showCard(){
         document.querySelector('#result').innerText = 'Player 2 Wins';
       }else{
         console.log('War Time');
-        drawCards = 8
-        cardNum1 = 6;
-        cardNum2 = 7;
+        if( score['remainingCards'] >= 8){
+          drawCards = 8
+          cardNum1 = 6;
+          cardNum2 = 7;
+        }else{
+          drawCards = score['remainingCards'];
+          cardNum1 = drawCards - 2;
+          cardNum2 = drawCards - 1;
+        }
+        
         document.querySelector('#result').innerText = 'Time for War';
       }
 
     }else{
-      score['remainingCards'] -= drawCards;
 
       if(player1CardVal > player2CardVal){
         score['player1'] += 8;
@@ -95,9 +109,15 @@ function showCard(){
         score['player2'] += 8;
         document.querySelector('#result').innerText = 'Player 2 Wins';
       }else{
-        drawCards = 8
-        cardNum1 = 6;
-        cardNum2 = 7;
+        if( score['remainingCards'] >= 8){
+          drawCards = 8
+          cardNum1 = 6;
+          cardNum2 = 7;
+        }else{
+          drawCards = score['remainingCards'];
+          cardNum1 = drawCards - 2;
+          cardNum2 = drawCards - 1;
+        }
         document.querySelector('#result').innerText = 'Time for War';
       }
 
@@ -168,6 +188,7 @@ function getScore(){
 function finalScore(){
 
   let result = score.player1 > score.player2?'Player 1 Wins the Game':'Player 2 Wins the Game';
+  console.log(score.player1 > score.player2);
 
   localStorage.clear();
   
